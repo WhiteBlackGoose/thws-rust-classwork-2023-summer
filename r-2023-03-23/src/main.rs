@@ -1,29 +1,27 @@
+use std::time;
+use std::time::SystemTime;
+
+use rand::prelude::*;
+
 fn main() {
-    println!("Hello, world!");
-    sqroot(5.0).expect("Bad input!");
-    sqroot(-5.0).expect("Bad input!");
-    match sqroot2(5.0) {
-        Ok(v) => println!("Value: {}", v),
-        Err(e) => println!("E {}", e)
+    let mut arr = [0; 64000];
+    for i in 0..arr.len() {
+        arr[i] = rand::random();
+        arr[i] %= 123;
     }
-    match sqroot2(-5.0) {
-        Ok(v) => println!("Value: {}", v),
-        Err(e) => println!("E {}", e)
+    let time_before = SystemTime::now()
+        .duration_since(SystemTime::UNIX_EPOCH)
+        .unwrap()
+        .as_millis()
+        ;
+    arr.sort();
+    let time_after = SystemTime::now()
+        .duration_since(SystemTime::UNIX_EPOCH)
+        .unwrap()
+        .as_millis()
+        ;
+    for el in arr {
+        println!("{}", el);
     }
-}
-
-fn sqroot(v: f32) -> Option<f32>{
-    if v >= 0.0 {
-        Some(v.powf(0.5))
-    } else {
-        None
-    }
-}
-
-fn sqroot2(v: f32) -> Result<f32, String>{
-    if v >= 0.0 {
-        Ok(v.powf(0.5))
-    } else {
-        Err("Negative not allowed".to_string())
-    }
+    println!("Elapsed time: {}", time_after - time_before);
 }
