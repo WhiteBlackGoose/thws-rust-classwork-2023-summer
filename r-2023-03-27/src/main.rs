@@ -24,9 +24,6 @@ fn validate(interpretation: &str, bmi: f32) -> bool {
 }
 
 fn main() {
-    // interpret(compute_bmi(50.0, 170.0));
-    // interpret(compute_bmi(30.0, 170.0));
-    // interpret(compute_bmi(30.0, 70.0));
-    print!("{}", validate("normal weight", 20.5));
-    print!("{}", validate("overweight", 20.5));
+    println!("{}", validate("normal weight", 20.5));
+    println!("{}", validate("overweight", 20.5));
 }
