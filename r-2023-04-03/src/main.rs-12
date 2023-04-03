@@ -1,0 +1,24 @@
+use std::time::SystemTime;
+
+struct Car {
+    make: String,
+    model: String,
+    year: u16
+}
+fn bmw_car_factory(model: String) -> Car {
+    Car { 
+        make: String::from("BMW"),
+        model,
+        year: (1970 as u64 + std::time::SystemTime::now().duration_since(SystemTime::UNIX_EPOCH).unwrap().as_secs() / (60 * 60 * 24 * 365)) as u16,
+    }
+}
+
+fn main() {
+    let car1 = Car { make: String::from("Mercedes"), model: String::from("S-Class"), year: 2016 };
+    let mut car2 = Car { make: String::from("Mitsubisi"), model: String::from("Pajero"), year: 2005 };
+    let car3 = bmw_car_factory(String::from("S-Class"));
+    let car4 = Car { ..car3 };
+    let car5 = Car { ..car4 };
+    println!("Year: {}", car3.year);
+    car2.year += 10;
+}
