@@ -4,6 +4,7 @@ fn main() {
     let s: String = String::from("¡¡¡¡¡Hello");
 
     let val = Arc::new(Mutex::new(s.clone()));
+
     let arc1 = val.clone();
     let t1 = thread::spawn(move || { 
         for _ in 0..5 {
@@ -21,7 +22,7 @@ fn main() {
     });
 
     for _ in 0..5 {
-        println!("{}", s);
+        println!("{}", val.lock().unwrap());
         thread::sleep(Duration::from_secs(1));
     }
 
