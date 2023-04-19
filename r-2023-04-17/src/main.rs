@@ -1,23 +1,12 @@
-use std::time::Duration;
-
 #[derive(Debug)]
-struct Car {
-    make: String,
-    model: String,
-    year: u16
+struct Student<T> {
+    id: T,
+    first_name: String,
+    last_name: String,
 }
 
-trait Racing {
-    fn racing_start(&self) -> Duration;
-}
-
-impl Racing for Car {
-    fn racing_start(&self) -> Duration {
-        Duration::from_secs(5)
-    }
-}
 
 fn main() {
-    let car = Car { make : String::from("Aaa"), model : String::from("Bbb"), year : 2032 };
-    println!("{:#?}", car);
+    println!("{:#?}", Student { id: 555, first_name: String::from("Aaa"), last_name: String::from("Bbb") });
+    println!("{:#?}", Student { id: "Aaa", first_name: String::from("Aaa"), last_name: String::from("Bbb") });
 }

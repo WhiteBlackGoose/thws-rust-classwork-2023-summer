@@ -1,0 +1,22 @@
+use std::ops::Add;
+
+fn jackpot_i32(a: i32, b: i32, c: i32) -> i32 {
+    a + b + c
+}
+fn jackpot_i16(a: i16, b: i16, c: i16) -> i16 {
+    a + b + c
+}
+fn jackpot_i8(a: i8, b: i8, c: i8) -> i8 {
+    a + b + c
+}
+fn jackpot<T: Add<Output = T>>(a: T, b: T, c: T) -> T {
+    a + b + c
+}
+
+fn main() {
+    println!("{}", jackpot_i32(1, 2, 3));
+    println!("{}", jackpot_i16(1, 2, 3));
+    println!("{}", jackpot_i8(1, 2, 3));
+    println!("{}", jackpot(1, 2, 3));
+    println!("{}", jackpot(0.5, 2.4, 3.3));
+}
