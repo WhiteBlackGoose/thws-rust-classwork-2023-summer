@@ -1,19 +1,15 @@
-use std::{net::{UdpSocket, TcpStream, IpAddr, Ipv4Addr, SocketAddr}, io::{Write, Read}, thread, time::Duration};
+use hyper::{Client, StatusCode, body::HttpBody};
 
-use regex::Regex;
-
-fn probe(ip: &[u8; 4], delay: Duration) {
-    for port in 1..u16::MAX {
-        let stream = TcpStream::connect(SocketAddr::from((*ip, port)));
-        if let Ok(_) = stream {
-            println!("Found {}", port);
-        }
-        thread::sleep(delay);
+#[tokio::main]
+async fn main() {
+    let client = Client::builder().build::<_, hyper::Body>(HttpsConnector::new());
+    let uri = "https://www.fhws.de".parse().unwrap();
+    let mut response = client.get(uri).await.unwrap();
+    if response.status() != StatusCode::OK {
+        println!("Unexpected error code {}", response.status());
+        return;
     }
-}
-
-fn main() {
-    let target_ip = [193, 174, 81, 220];
-    let target_ip = [127, 0, 0, 1];
-    probe(&target_ip, Duration::from_millis(0));
+    let body = response.body_mut();
+    let body = String::from_utf8(body.data().await.unwrap().unwrap().to_vec()).unwrap();
+    println!("{}", body);
 }
