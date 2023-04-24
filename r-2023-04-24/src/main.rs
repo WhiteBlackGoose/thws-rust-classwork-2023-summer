@@ -22,7 +22,7 @@ mod bmi {
 
 mod bmi_test {
     pub fn validate(interpretation: &str, bmi: f32) -> bool {
-        let s: &str = &bmi::interpret(bmi);
+        let s: &str = &super::bmi::interpret(bmi);
         s.eq(interpretation)
     }
 }
