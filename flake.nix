@@ -16,8 +16,19 @@
           toolchain = pkgs.rust-bin.fromRustupToolchainFile ./toolchain.toml;
           in
         {
-          default =
-          pkgs.mkShell {
+          default = pkgs.mkShell {
+            buildInputs = with pkgs; [
+              rustc
+              rust-analyzer
+              vscode-extensions.vadimcn.vscode-lldb
+              openssl cmake zlib
+            ];
+            VSCODE_CODELLDB = "${pkgs.vscode-extensions.vadimcn.vscode-lldb}";
+            OPENSSL_DIR="${pkgs.openssl.dev}";
+            OPENSSL_LIB_DIR="${pkgs.openssl.out}/lib";
+          };
+
+          web = pkgs.mkShell {
             buildInputs = with pkgs; [
               toolchain
               rust-analyzer-unwrapped
