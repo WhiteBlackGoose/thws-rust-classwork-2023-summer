@@ -1,0 +1,13 @@
+<html>
+    <body>
+        <script type="module">
+            import init from "./pkg/r_2023_05_11.js";
+            const runWasm = async () => {
+                var c = await init("./pkg/r_2023_05_11_bg.wasm");
+                var result = c.square(7);
+                document.body.textContent = result;
+            };
+            runWasm();
+        </script>
+    </body>
+</html>

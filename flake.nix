@@ -33,6 +33,7 @@
               toolchain
               rust-analyzer-unwrapped
               wasm-pack
+              wasm-bindgen-cli
               vscode-extensions.vadimcn.vscode-lldb
               openssl cmake zlib
               (
@@ -41,6 +42,7 @@
                   in 
                 (writeScriptBin "server" "${py}/bin/python -m http.server")
               )
+              (writeScriptBin "rebuild" "wasm-pack build --target web")
             ];
             VSCODE_CODELLDB = "${pkgs.vscode-extensions.vadimcn.vscode-lldb}";
             OPENSSL_DIR="${pkgs.openssl.dev}";
