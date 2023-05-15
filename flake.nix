@@ -18,6 +18,7 @@
         {
           default = pkgs.mkShell {
             buildInputs = with pkgs; [
+              cargo
               rustc
               rust-analyzer
               vscode-extensions.vadimcn.vscode-lldb
